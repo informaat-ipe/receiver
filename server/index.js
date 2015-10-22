@@ -22,8 +22,9 @@ app.post('/new-module', function(req, res){
 		// TODO: determine if we want to throw...
 		if(! payload || typeof payload !== 'object') throw new Error( 'Did not receive an Object as argument' );
 
-		var name = payload.repository.name;
-		var id   = name.replace(/\s+/g, ''); // strip all whitespace
+		var name       = payload.repository.name;
+        var repository = payload.repository.url;
+		var id         = name.replace(/\s+/g, ''); // strip all whitespace
 
 		// Return the expected options structure
 		// TODO: refactor this, now this is responsible for the default `build` part
