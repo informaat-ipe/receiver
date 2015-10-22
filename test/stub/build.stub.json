@@ -1,0 +1,30 @@
+{
+    "id": "Test Config_Build",
+    "name": "Build",
+    "projectName": "node_modules :: Test Config",
+    "projectId": "TestConfig",
+    "href": "/app/rest/buildTypes/id:Test Config_Build",
+    "webUrl": "http://gpro.local:8111/viewType.html?buildTypeId=Test Config_Build",
+    "project": {
+        "id": "TestConfig",
+        "name": "Test Config",
+        "parentProjectId": "NodeModules",
+        "href": "/app/rest/projects/id:TestConfig",
+        "webUrl": "http://gpro.local:8111/project.html?projectId=TestConfig"
+    },
+    "template": {
+        "id": "NodeModule",
+        "name": "node_module",
+        "templateFlag": true,
+        "projectName": "node_modules",
+        "projectId": "NodeModules",
+        "href": "/app/rest/buildTypes/id:NodeModule"
+    },
+    "vcs-root-entries": {
+        "count": 0,
+        "vcs-root-entry": []
+    },
+    "builds": {
+        "href": "/app/rest/buildTypes/id:Test Config_Build/builds/"
+    }
+}

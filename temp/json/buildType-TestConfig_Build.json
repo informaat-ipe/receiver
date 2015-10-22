@@ -1,0 +1,257 @@
+{
+    "id": "TestConfig_Build",
+    "name": "Build",
+    "projectName": "node_modules :: Test Config",
+    "projectId": "TestConfig",
+    "href": "/app/rest/buildTypes/id:TestConfig_Build",
+    "webUrl": "http://gpro.local:8111/viewType.html?buildTypeId=TestConfig_Build",
+    "project": {
+        "id": "TestConfig",
+        "name": "Test Config",
+        "parentProjectId": "NodeModules",
+        "href": "/app/rest/projects/id:TestConfig",
+        "webUrl": "http://gpro.local:8111/project.html?projectId=TestConfig"
+    },
+    "template": {
+        "id": "NodeModule",
+        "name": "node_module",
+        "templateFlag": true,
+        "projectName": "node_modules",
+        "projectId": "NodeModules",
+        "href": "/app/rest/buildTypes/id:NodeModule"
+    },
+    "vcs-root-entries": {
+        "count": 0,
+        "vcs-root-entry": []
+    },
+    "settings": {
+        "count": 17,
+        "property": [
+            {
+                "name": "allowExternalStatus",
+                "value": "false"
+            },
+            {
+                "name": "allowPersonalBuildTriggering",
+                "value": "true"
+            },
+            {
+                "name": "artifactRules",
+                "value": ""
+            },
+            {
+                "name": "buildNumberCounter",
+                "value": "1"
+            },
+            {
+                "name": "buildNumberPattern",
+                "value": "%build.counter%"
+            },
+            {
+                "name": "checkoutDirectory"
+            },
+            {
+                "name": "checkoutMode",
+                "value": "ON_SERVER"
+            },
+            {
+                "name": "cleanBuild",
+                "value": "false"
+            },
+            {
+                "name": "enableHangingBuildsDetection",
+                "value": "true"
+            },
+            {
+                "name": "executionTimeoutMin",
+                "value": "0"
+            },
+            {
+                "name": "maximumNumberOfBuilds",
+                "value": "0"
+            },
+            {
+                "name": "shouldFailBuildIfTestsFailed",
+                "value": "true"
+            },
+            {
+                "name": "shouldFailBuildOnAnyErrorMessage",
+                "value": "false"
+            },
+            {
+                "name": "shouldFailBuildOnBadExitCode",
+                "value": "true"
+            },
+            {
+                "name": "shouldFailBuildOnOOMEOrCrash",
+                "value": "true"
+            },
+            {
+                "name": "showDependenciesChanges",
+                "value": "false"
+            },
+            {
+                "name": "vcsLabelingBranchFilter",
+                "value": "+:<default>"
+            }
+        ]
+    },
+    "parameters": {
+        "count": 4,
+        "href": "/app/rest/buildTypes/id:TestConfig_Build/parameters",
+        "property": [
+            {
+                "name": "docker.registry",
+                "value": "docker-registry.informaat-cxp.com",
+                "type": {
+                    "rawValue": "text validationMode='any' display='hidden'"
+                }
+            },
+            {
+                "name": "env.NODE_ENV",
+                "value": "test"
+            },
+            {
+                "name": "env.NODE_VERSION",
+                "value": "0.12.7"
+            },
+            {
+                "name": "NPM_CONFIG_REGISTRY",
+                "value": "http://npm.informaat-cxp.com"
+            }
+        ]
+    },
+    "steps": {
+        "count": 5,
+        "step": [
+            {
+                "id": "RUNNER_1",
+                "name": "install",
+                "type": "simpleRunner",
+                "properties": {
+                    "count": 3,
+                    "property": [
+                        {
+                            "name": "script.content",
+                            "value": "npm install"
+                        },
+                        {
+                            "name": "teamcity.step.mode",
+                            "value": "default"
+                        },
+                        {
+                            "name": "use.custom.script",
+                            "value": "true"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "RUNNER_9",
+                "name": "test",
+                "type": "simpleRunner",
+                "properties": {
+                    "count": 3,
+                    "property": [
+                        {
+                            "name": "script.content",
+                            "value": "npm test"
+                        },
+                        {
+                            "name": "teamcity.step.mode",
+                            "value": "default"
+                        },
+                        {
+                            "name": "use.custom.script",
+                            "value": "true"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "RUNNER_10",
+                "name": "build",
+                "type": "simpleRunner",
+                "properties": {
+                    "count": 3,
+                    "property": [
+                        {
+                            "name": "script.content",
+                            "value": "npm run build"
+                        },
+                        {
+                            "name": "teamcity.step.mode",
+                            "value": "default"
+                        },
+                        {
+                            "name": "use.custom.script",
+                            "value": "true"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "RUNNER_11",
+                "name": "version",
+                "type": "simpleRunner",
+                "properties": {
+                    "count": 3,
+                    "property": [
+                        {
+                            "name": "script.content",
+                            "value": "npm version"
+                        },
+                        {
+                            "name": "teamcity.step.mode",
+                            "value": "default"
+                        },
+                        {
+                            "name": "use.custom.script",
+                            "value": "true"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "RUNNER_12",
+                "name": "publish",
+                "type": "simpleRunner",
+                "properties": {
+                    "count": 3,
+                    "property": [
+                        {
+                            "name": "script.content",
+                            "value": "# npm publish"
+                        },
+                        {
+                            "name": "teamcity.step.mode",
+                            "value": "default"
+                        },
+                        {
+                            "name": "use.custom.script",
+                            "value": "true"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "features": {
+        "count": 0
+    },
+    "triggers": {
+        "count": 0
+    },
+    "snapshot-dependencies": {
+        "count": 0
+    },
+    "artifact-dependencies": {
+        "count": 0
+    },
+    "agent-requirements": {
+        "count": 0
+    },
+    "builds": {
+        "href": "/app/rest/buildTypes/id:TestConfig_Build/builds/"
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "project": {
+        "id": "TestConfig",
+        "name": "Test Config"
+    },
+    "build": {
+        "name": "Build"
+    }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "ops.teamcity",
+  "version": "1.0.0",
+  "description": "Teamcity Github integration for Dialogica",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "mocha": "^2.3.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "request": "^2.65.0"
+  }
+}
