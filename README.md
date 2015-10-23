@@ -8,15 +8,15 @@ Automatically sets up a Teamcity project for node_module packages.
 ```
 
 ## Setup
-1. Set up a Webhook on the informaat-ipe organisation on Github, posting 'new repo' event messages to this endpoint: [url of server]/new-module
-2. When a new repo event is received, the `handler` will pass the message to `decoder`
-3. The `decoder` will parse the webhook message and create an `options` object which it will pass
+1. Set up a Webhook on the informaat-ipe organisation on Github, posting 'new repo' event messages to this endpoint: `[url of server]/new-module`
+1. When a new repo event is received, the `handler` will pass the message to `decoder`
+1. The `decoder` will parse the webhook message and create an `options` object which it will pass
 
 ## Testing
 To manually test this webhook receiver, you can expose a local port to the internet, and then update the Github webhook configuration to post this port.
+1. Start the tunnel: `npm run tunnel`
 1. Start the server: `npm start`
-2. Start the tunnel: `npm run tunnel`
-3. Configure the webhook: `https://github.com/organizations/informaat-ipe/settings/hooks/6180300`
+1. Configure the webhook: `https://github.com/organizations/informaat-ipe/settings/hooks/6180300`
 
 ## Project structure
 ```
