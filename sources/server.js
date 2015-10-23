@@ -1,8 +1,8 @@
 'use strict';
 
-var express          = require('express');
-var bparser          = require('body-parser');
-var new-repo-handler = require('./handler.js');
+var express        = require('express');
+var bparser        = require('body-parser');
+var newRepoHandler = require('./handler.js');
 
 
 var app = express();
@@ -20,16 +20,18 @@ app.get('/', function(req, res){
 
 function registerEndpoint( app, endpoint, handler ) {
     // URL to receive Github webhook POST
-    if( arguments.length !== 3 || ! typeof app !== 'object' || typeof endpoint !== 'string' || typeof handler !== 'function' )
+    if( arguments.length !== 3 || typeof app !== 'function' || typeof endpoint !== 'string' || typeof handler !== 'function' )
         throw new Error('You need to provide an express app, endpoint string and its handler function to register an endpoint');
 
     return app.post( endpoint , handler );
 }
 
-registerEndpoint( app, '/new-repo', new-repo-handler );
+// Register the POST /new-repo endpoint
+registerEndpoint( app, '/new-repo', newRepoHandler );
 
 module.exports = function server( options ) {
-    var port = options.port;
-    app.listen(port);
-    console.log('Listening at http://localhost:' + port);
+    if( ! options ) throw new Error( 'You need to provide an options object' );
+
+    app.listen( options.port );
+    console.log("Listening for github webhook messages at http://localhost:%d/new-repo", options.port);
 }

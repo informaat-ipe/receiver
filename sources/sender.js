@@ -1,8 +1,8 @@
 'use strict';
 
 var request        = require('request');
-var projectMessage = require('./messages/project.js');
-var buildMessage   = require('./messages/build.js');
+var projectMessage = require('../messages/project.js');
+var buildMessage   = require('../messages/build.js');
 
 function mergeDefaultsWith( uri, message ) {
 	// This function merges new options with build-in defaults.
