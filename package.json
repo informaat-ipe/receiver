@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "mocha",
-    "start": "TC_PORT=8000 node index.js",
-    "test:manual": "TC_PORT=8000 ./utils/ngrok http $(TC_PORT) && npm start"
+    "start": "node index.js",
+    "tunnel": "./utils/ngrok http 8000"
   },
   "author": "",
   "license": "ISC",
