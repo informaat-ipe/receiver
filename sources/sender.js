@@ -1,7 +1,7 @@
 'use strict';
 
 var Promise        = require( 'bluebird' );
-var request        = require( 'request' );
+var request        = Promise.promisify( require( 'request' ) );
 var projectMessage = require( './messages/project.js' );
 var buildMessage   = require( './messages/build.js' );
 
@@ -46,33 +46,33 @@ function handler( callback ) {
 
 }
 
-function postProject( config, callback ) {
+function postProject( config ) {
 	var uri  = '/projects';
 	var body = projectMessage( config );
 
-	request( mergeDefaultsWith( uri, body ), handler( callback ) );
+	return request( mergeDefaultsWith( uri, body ) );
 }
 
-function postBuild( config, callback ) {
+function postBuild( config ) {
 	var uri  = '/buildTypes';
 	var body = buildMessage( config );
 
-	request ( mergeDefaultsWith( uri, body ), handler() );
+	return request ( mergeDefaultsWith( uri, body ) );
 }
 
+/*
+postBuild( { project: { name: "TEST", id: "TEST" }, build: {name: "BUILD" } }).then(function(err, result) {
+	if( err ) { console.log(err); throw err };
+	console.log(result);
+}).catch(function(err) {  });
+*/
 
-module.exports = function sender( options ) {
-	// `options` is the output of `parser.js`
-	if( ! options ) throw new Error( 'You need to provide an options object' );
+module.exports = function sender( config ) {
+	// `config` is the output of `parser.js`
+	if( ! config ) throw new Error( 'You need to provide a config object' );
 
 	// newProject & newDVCS, then newBuild
-	postProject( postBuild );
-
-	/*
-		// Chain:
-		createDVCS().then( createProject().then( createBuild() ) ).catch( function(err) {} );
-
-		// All:
-		Promise.all([ crateDVCS, createProject, createBuild ]).catch( function(err) {} );
-	*/
+	postProject( config ).then( postBuild( config ) ).catch( function(err) {
+		throw new Error( err );
+	});
 }
