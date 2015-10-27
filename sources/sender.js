@@ -1,8 +1,9 @@
 'use strict';
 
-var request        = require('request');
-var projectMessage = require('./messages/project.js');
-var buildMessage   = require('./messages/build.js');
+var Promise        = require( 'bluebird' );
+var request        = require( 'request' );
+var projectMessage = require( './messages/project.js' );
+var buildMessage   = require( './messages/build.js' );
 
 function mergeDefaultsWith( uri, message ) {
 	// This function merges new options with build-in defaults.
@@ -66,4 +67,12 @@ module.exports = function sender( options ) {
 
 	// newProject & newDVCS, then newBuild
 	postProject( postBuild );
+
+	/*
+		// Chain:
+		createDVCS().then( createProject().then( createBuild() ) ).catch( function(err) {} );
+
+		// All:
+		Promise.all([ crateDVCS, createProject, createBuild ]).catch( function(err) {} );
+	*/
 }
