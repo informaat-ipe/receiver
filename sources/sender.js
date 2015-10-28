@@ -46,6 +46,16 @@ function handler( callback ) {
 
 }
 
+function postPromise(el) {
+	// domain:   Object: { uri: String, body: String }
+	// codomain: Promise
+	return request( mergeDefaultsWith( el.uri, el.message ) );
+}
+
+// Do something akin to this:
+// messages.map(postPromise);
+
+
 function postProject( config ) {
 	var uri  = '/projects';
 	var body = projectMessage( config );
@@ -60,19 +70,40 @@ function postBuild( config ) {
 	return request ( mergeDefaultsWith( uri, body ) );
 }
 
-/*
+
+
 postBuild( { project: { name: "TEST", id: "TEST" }, build: {name: "BUILD" } }).then(function(err, result) {
-	if( err ) { console.log(err); throw err };
-	console.log(result);
-}).catch(function(err) {  });
-*/
+	if( err ) { throw err };
+	console.log( check(result) );
+}).catch(function(error) {
+	console.error(error.statusCode);
+	console.log(arguments.length);
+});
+
+
+function success( response ) {
+	console.log( 'SUCCESS' );
+	return res.end(true);
+}
+
+function failure( error ) {
+	console.error( 'FAILURE' );
+	console.error( error );
+	return false;
+}
 
 module.exports = function sender( config ) {
 	// `config` is the output of `parser.js`
 	if( ! config ) throw new Error( 'You need to provide a config object' );
 
 	// newProject & newDVCS, then newBuild
-	postProject( config ).then( postBuild( config ) ).catch( function(err) {
-		throw new Error( err );
-	});
+	var messages = [
+		{ uri: '/projects', body: projectMessage( config ) },
+		{ uri: '/buildTypes', body: buildMessage( config ) }
+	];
+
+	Promise
+		.all( messages.map(post) )
+		.then( sucess )
+		.catch( failure )
 }
