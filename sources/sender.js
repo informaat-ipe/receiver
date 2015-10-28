@@ -55,7 +55,7 @@ module.exports = function sender( config ) {
 
 	// newProject & newDVCS, then newBuild
 	var messages = [
-		{ uri: '/vcs-roots', body: vcsMessage( config ) },
+		// { uri: '/vcs-roots', body: vcsMessage( config ) },
 		{ uri: '/projects', body: projectMessage( config ) },
 		{ uri: '/buildTypes', body: buildMessage( config ) }
 	];

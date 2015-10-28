@@ -6,7 +6,7 @@ require.extensions['.xml'] = function(module, filename) {
 	module.exports = fs.readFileSync(filename, 'utf8');
 };
 
-function populate( file, dictionary ) {
+module.exports = function populate( file, dictionary ) {
 	var template = require( file );
 
 	Object.keys( dictionary ).forEach(function(el) {
