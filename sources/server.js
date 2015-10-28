@@ -9,7 +9,7 @@ var app = express();
 
 
 // Set up default middlewares:
-app.use( bparser.urlencoded( { extended: false } ) );
+app.use( bparser.json() );
 
 // Provide a GET index url for our future selves:
 app.get('/', function(req, res){

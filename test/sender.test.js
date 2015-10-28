@@ -1,12 +1,36 @@
 'use strict';
 
-var expect = require('chai').expect;
+var expect  = require('chai').expect;
+var mockery = require('mockery');
+
+var requestMock = function( options, callback ) {
+	return {
+		body: "Success Message",
+		statusCode: 200
+	};
+}
+
+mockery.registerMock( 'request', requestMock );
 
 describe('sender', function() {
-	// domain: 		msg (String:xml)
-	// codomain: 	response (response: Object { body: xml, statusCode: Number })
+	var sender = require('../sources/sender.js');
+	var config = require('./stub/options.stub.json');
+	var promise = sender(config);
 
-	it('should set up the correct post chain');
+	before(function(done) {
+		mockery.enable({warnOnReplace: true, warnOnUnregistered: true});
+		return done();
+	});
+
+	after(function(done) {
+		mockery.disable();
+		return done();
+	});
+
+	it('should return a Promise', function() {
+		expect( typeof promise.then ).to.equal('function');
+		expect( typeof promise.catch ).to.equal('function');
+	});
 
 	describe('error handling', function() {
 		it('should throw an error when you do not pass in a message to send');

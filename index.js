@@ -2,7 +2,7 @@
 
 // Parse the environment, create configuration
 var options = {
-	port: process.env.TC_PORT || 8000
+	port: process.env.OPS_PORT || 8000
 }
 
 var server = require('./sources/server.js');
