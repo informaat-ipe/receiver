@@ -16,6 +16,9 @@ module.exports = function parseNewRepoMessage( message ) {
 		},
 		build: {
 			name: "Build"
+		},
+		vcs: {
+			url: repository
 		}
 	}
 };

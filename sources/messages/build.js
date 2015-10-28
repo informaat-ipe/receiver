@@ -1,7 +1,7 @@
 'use strict';
 
 var message = require('../message.js');
-var template = './templates/build.xml';
+var template = './messages/templates/build.xml';
 
 module.exports = function( options ) {
     var dictionary = {

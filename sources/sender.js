@@ -4,6 +4,7 @@ var Promise        = require( 'bluebird' );
 var request        = Promise.promisify( require( 'request' ) );
 var projectMessage = require( './messages/project.js' );
 var buildMessage   = require( './messages/build.js' );
+var vcsMessage     = require( './messages/vcs.js' );
 
 function mergeDefaultsWith( uri, message ) {
 	// This function merges new options with build-in defaults.
@@ -31,10 +32,14 @@ function mergeDefaultsWith( uri, message ) {
 	};
 }
 
+function log( message ) {
+	console.log( message.method, message.statusCode, message.statusMessage, message.body );
+}
+
 function post(el) {
 	// domain:   Object: { uri: String, body: String }
 	// codomain: Promise
-	return request( mergeDefaultsWith( el.uri, el.body ) );
+	return request( mergeDefaultsWith( el.uri, el.body ) ).tap( log );
 }
 
 
@@ -55,8 +60,8 @@ module.exports = function sender( config ) {
 
 	// newProject & newDVCS, then newBuild
 	var messages = [
-		// { uri: '/vcs-roots', body: vcsMessage( config ) },
-		{ uri: '/projects', body: projectMessage( config ) },
+		{ uri: '/vcs-roots',  body: vcsMessage( config ) },
+		{ uri: '/projects',   body: projectMessage( config ) },
 		{ uri: '/buildTypes', body: buildMessage( config ) }
 	];
 

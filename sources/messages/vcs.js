@@ -1,7 +1,7 @@
 // POST XML to /httpAuth/app/rest/vcs-roots/
 
 var message = require('../message.js');
-var template = './templates/vcs.xml';
+var template = './messages/templates/vcs.xml';
 
 module.exports = function( options ) {
 	var dictionary = {
