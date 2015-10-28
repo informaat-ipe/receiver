@@ -54,7 +54,18 @@ module.exports = function sender( config ) {
 		{ uri: '/buildTypes', body: buildMessage( config ) }
 	];
 
+	// Create a promise for each post:
+	var newProject = post( messages[0] );
+	var newVCS     = post( messages[1] );
+	var newBuild   = post( messages[2] );
+
+	var chain = newProject
+		.then( newVCS )
+		.then( newBuild )
+		.catch( console.error );
+
 	// Process each promise in sequence
 	// [TypeError: expecting a function but got [object Undefined]]
-	return Promise.mapSeries( messages.map( post ) );
+	// return Promise.mapSeries( messages.map( post ) );
+	return chain;
 }
