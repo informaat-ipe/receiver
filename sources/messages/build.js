@@ -1,6 +1,6 @@
 'use strict';
 
-var message = require('../message.js');
+var message  = require('../message.js');
 var template = './messages/templates/build.xml';
 
 module.exports = function( options ) {

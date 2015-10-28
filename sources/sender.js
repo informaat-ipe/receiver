@@ -39,20 +39,9 @@ function log( message ) {
 function post(el) {
 	// domain:   Object: { uri: String, body: String }
 	// codomain: Promise
+	// TODO: add .then() to check for `statusCode`s other then 200
 	return request( mergeDefaultsWith( el.uri, el.body ) ).tap( log );
 }
-
-
-/*
-postBuild( { project: { name: "TEST", id: "TEST" }, build: {name: "BUILD" } }).then(function(err, result) {
-	if( err ) { throw err };
-	console.log( check(result) );
-}).catch(function(error) {
-	console.error(error.statusCode);
-	console.log(arguments.length);
-});
-*/
-
 
 module.exports = function sender( config ) {
 	// `config` is the output of `parser.js`
@@ -60,10 +49,12 @@ module.exports = function sender( config ) {
 
 	// newProject & newDVCS, then newBuild
 	var messages = [
-		{ uri: '/vcs-roots',  body: vcsMessage( config ) },
 		{ uri: '/projects',   body: projectMessage( config ) },
+		{ uri: '/vcs-roots',  body: vcsMessage( config ) },
 		{ uri: '/buildTypes', body: buildMessage( config ) }
 	];
 
-	return Promise.all( messages.map(post) );
+	// Process each promise in sequence
+	// [TypeError: expecting a function but got [object Undefined]]
+	return Promise.mapSeries( messages.map( post ) );
 }
