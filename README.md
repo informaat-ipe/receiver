@@ -14,6 +14,7 @@ Automatically sets up a Teamcity project for node_module packages.
 
 ## Testing
 To manually test this webhook receiver, you can expose a local port to the internet, and then update the Github webhook configuration to post this port.
+
 1. Start the tunnel: `npm run tunnel`
 1. Start the server: `npm start`
 1. Configure the webhook: `https://github.com/organizations/informaat-ipe/settings/hooks/6180300`
