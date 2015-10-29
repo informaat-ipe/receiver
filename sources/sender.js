@@ -2,10 +2,8 @@
 
 var Promise        = require( 'bluebird' );
 var util           = require( 'util' );
+var message        = require( './message.js' );
 var request        = Promise.promisify( require( 'request' ) );
-var projectMessage = require( './messages/project.js' );
-var buildMessage   = require( './messages/build.js' );
-var vcsMessage     = require( './messages/vcs.js' );
 
 function mergeDefaultsWith( uri, message ) {
 	// This function merges new options with build-in defaults.
@@ -42,32 +40,20 @@ function post(el) {
 	}
 }
 
-function summarize( result ) {
-	return {
-		path:		result.req.path,
-		method:		result.req.method,
-		statusCode: result.statusCode,
-		body:		result.body
-	}
-}
 
-function checkForDuplicate( message ) {
-	return message.body.indexOf('Duplicate');
-}
-
-module.exports = function sender( config ) {
-	// `config` is the output of `parser.js`
-	if( ! config ) throw new Error( 'You need to provide a config object' );
+module.exports = function sender( dictionary ) {
+	// `dictionary` is the output of `parser.js`
+	if( ! dictionary ) throw new Error( 'You need to provide a dictionary object' );
 
 	// newProject & newDVCS, then newBuild
 	var messages = [
-		{ uri: '/projects',   body: projectMessage( config ) },
-		{ uri: '/vcs-roots',  body: vcsMessage( config ) },
-		{ uri: '/buildTypes', body: buildMessage( config ) }
+		{ uri: '/projects',   body: message( './templates/project.xml', dictionary ) },
+		{ uri: '/vcs-roots',  body: message( './templates/vcs.xml',     dictionary ) },
+		{ uri: '/buildTypes', body: message( './templates/build.xml',   dictionary ) }
 	];
 
 	// Map over the promises so they execute in sequence
-	// The results are stored in an array
+	// The results are stored in an array which the promise resolves into
 	var Posts = messages.map( post );
 
 	return Promise.reduce(Posts, function PostReducer (results, doPost) {
@@ -75,7 +61,5 @@ module.exports = function sender( config ) {
 			results.push(result);
 			return results;
 		})
-	}, []).then(function summarizeResults( results) { return results.map( summarize ); });
-
-	// return Promise.cast(messages).mapSeries(post);
+	}, []);
 }

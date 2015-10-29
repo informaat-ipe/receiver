@@ -4,6 +4,21 @@ var parser = require('./parser.js');
 var sender = require('./sender.js');
 
 
+function summarize( result ) {
+	return {
+		path:		result.req.path,
+		method:		result.req.method,
+		statusCode: result.statusCode,
+		body:		result.body
+	}
+}
+
+function checkForDuplicate( message ) {
+	// Filter all messages whose body contains 'Duplicate'
+	return message.body.indexOf('Duplicate');
+}
+
+
 // Github webhook message handler
 module.exports = function handler ( req, res ){
 	console.log('Received as POST to /new-module');
@@ -18,9 +33,12 @@ module.exports = function handler ( req, res ){
 		res.end('ERROR');
 	}
 
+
+	// Handle payload -- turn it into posts to the Teamcity API
 	sender( parser(req.body) )
-	.then( function success (result) {
-		console.log( 'SUCCESS:', result );
+	.then(function summarizeResults( results) { return results.map( summarize ); })
+	.then( function success (summaries) {
+		console.log("SUCCESS", summaries);
 
 		res.writeHead(200, {'Content-Type': 'text/html'});
 		res.end('SUCCESS');
