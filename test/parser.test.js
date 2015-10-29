@@ -4,14 +4,9 @@ var expect = require('chai').expect;
 
 describe('parser', function() {
 	var parser = require('../sources/parser.js');
-	var output = require('./stub/options.stub.json');
+	var output = require('./stub/dictionary.json');
+	var input  = require('./stub/webhook.json');
 
-	var input = {
-		repository: {
-			name: "Test Config",
-			url: "id://lsdkfjs;adkjf"
-		}
-	};
 
 	it('should return a valid options object', function() {
 		expect( parser( input ) ).to.eql( output );

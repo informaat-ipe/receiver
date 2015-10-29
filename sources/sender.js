@@ -2,10 +2,8 @@
 
 var Promise        = require( 'bluebird' );
 var util           = require( 'util' );
+var message        = require( './message.js' );
 var request        = Promise.promisify( require( 'request' ) );
-var projectMessage = require( './messages/project.js' );
-var buildMessage   = require( './messages/build.js' );
-var vcsMessage     = require( './messages/vcs.js' );
 
 function mergeDefaultsWith( uri, message ) {
 	// This function merges new options with build-in defaults.
@@ -38,40 +36,30 @@ function post(el) {
 	// codomain: Promise
 
 	return function ReuestPromiseFactory () {
-		return request( mergeDefaultsWith( el.uri, el.body ) ).tap( log ).then( inspect );
-	}
-
-
-	function log( message ) {
-		console.log( message.req.method, message.req.path, ':', message.statusCode, message.statusMessage, message.body, '\n' );
-	}
-
-	function inspect( result ) {
-		// TODO: expand the rules here. 
-		if( result.statusCode !== 200 ) throw new Error(util.format("The %s to %s returned a %d: %s", result.req.method, result.req.path, result.statusCode, result.body));
+		return request( mergeDefaultsWith( el.uri, el.body ) );
 	}
 }
 
-module.exports = function sender( config ) {
-	// `config` is the output of `parser.js`
-	if( ! config ) throw new Error( 'You need to provide a config object' );
+
+module.exports = function sender( dictionary ) {
+	// `dictionary` is the output of `parser.js`
+	if( ! dictionary ) throw new Error( 'You need to provide a dictionary object' );
 
 	// newProject & newDVCS, then newBuild
 	var messages = [
-		{ uri: '/projects',   body: projectMessage( config ) },
-		{ uri: '/vcs-roots',  body: vcsMessage( config ) },
-		{ uri: '/buildTypes', body: buildMessage( config ) }
+		{ uri: '/projects',   body: message( './templates/project.xml', dictionary ) },
+		{ uri: '/vcs-roots',  body: message( './templates/vcs.xml',     dictionary ) },
+		{ uri: '/buildTypes', body: message( './templates/build.xml',   dictionary ) }
 	];
 
 	// Map over the promises so they execute in sequence
-	// The results are stored in an array
+	// The results are stored in an array which the promise resolves into
 	var Posts = messages.map( post );
+
 	return Promise.reduce(Posts, function PostReducer (results, doPost) {
 		return doPost().then( function PostResultHandler (result) {
 			results.push(result);
 			return results;
 		})
 	}, []);
-
-	// return Promise.cast(messages).mapSeries(post);
 }

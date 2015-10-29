@@ -10,7 +10,7 @@ describe('message', function() {
 
 	it('should return a populated object if a valid options object is passed in.', function() {
 		// Normalize by removing whitespace
-		var A = message( '../sources/messages/templates/build.xml', dictionary ).replace(/\s/g, "");
+		var A = message( '../sources/templates/build.xml', dictionary ).replace(/\s/g, "");
 		var B = stub.replace(/\s/g, "");
 
 		expect( A ).to.eql( B );

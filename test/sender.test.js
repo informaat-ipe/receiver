@@ -1,7 +1,7 @@
 'use strict';
 
 var expect  = require('chai').expect;
-var mockery = require('mockery');
+var mockery = require('mockery'); // this module allows you to control what `require` returns
 
 var requestMock = function( options, callback ) {
 	return {
@@ -10,6 +10,7 @@ var requestMock = function( options, callback ) {
 	};
 }
 
+// Configuring calls to `require(reqeust)` to return `requestMock`
 mockery.registerMock( 'request', requestMock );
 
 describe('sender', function() {
