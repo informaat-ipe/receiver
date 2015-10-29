@@ -17,7 +17,7 @@ COPY . $OPS_PATH
 # Install the deps (in WORKDIR)
 RUN npm install
 
-# Expose port 8000
+# Expose port
 EXPOSE $OPS_PORT
 
 # Start the app (in WORKDIR)

@@ -13,7 +13,7 @@
     "tunnel": "./utilities/ngrok http ${OPS_PORT:-8000}",
     "build": "docker build -t dialogica/ops.receiver .",
     "test:post": "curl -vX POST http://localhost:${OPS_PORT:-8000}/new-repo -d @test/stub/webhook.json --header \"Content-Type: application/json\"",
-    "docker": "docker run -p ${OPS_PORT:-8000}:8000 -d dialogica/ops.receiver"
+    "docker": "docker run --name ops_receiver -p ${OPS_PORT:-8000}:8000 -d dialogica/ops.receiver"
   },
   "author": "Garbrand van der Molen <garbrand@gmail.com>",
   "license": "ISC",
