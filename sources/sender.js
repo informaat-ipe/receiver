@@ -38,18 +38,21 @@ function post(el) {
 	// codomain: Promise
 
 	return function ReuestPromiseFactory () {
-		return request( mergeDefaultsWith( el.uri, el.body ) ).tap( log ).then( inspect );
+		return request( mergeDefaultsWith( el.uri, el.body ) );
 	}
+}
 
-
-	function log( message ) {
-		console.log( message.req.method, message.req.path, ':', message.statusCode, message.statusMessage, message.body, '\n' );
+function summarize( result ) {
+	return {
+		path:		result.req.path,
+		method:		result.req.method,
+		statusCode: result.statusCode,
+		body:		result.body
 	}
+}
 
-	function inspect( result ) {
-		// TODO: expand the rules here. 
-		if( result.statusCode !== 200 ) throw new Error(util.format("The %s to %s returned a %d: %s", result.req.method, result.req.path, result.statusCode, result.body));
-	}
+function checkForDuplicate( message ) {
+	return message.body.indexOf('Duplicate');
 }
 
 module.exports = function sender( config ) {
@@ -66,12 +69,13 @@ module.exports = function sender( config ) {
 	// Map over the promises so they execute in sequence
 	// The results are stored in an array
 	var Posts = messages.map( post );
+
 	return Promise.reduce(Posts, function PostReducer (results, doPost) {
 		return doPost().then( function PostResultHandler (result) {
 			results.push(result);
 			return results;
 		})
-	}, []);
+	}, []).then(function summarizeResults( results) { return results.map( summarize ); });
 
 	// return Promise.cast(messages).mapSeries(post);
 }

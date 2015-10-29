@@ -20,7 +20,7 @@ module.exports = function handler ( req, res ){
 
 	sender( parser(req.body) )
 	.then( function success (result) {
-		console.log( 'SUCCESS' );
+		console.log( 'SUCCESS:', result );
 
 		res.writeHead(200, {'Content-Type': 'text/html'});
 		res.end('SUCCESS');
