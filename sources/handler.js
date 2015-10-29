@@ -36,7 +36,9 @@ module.exports = function handler ( req, res ){
 
 	// Handle payload -- turn it into posts to the Teamcity API
 	sender( parser(req.body) )
-	.then(function summarizeResults( results) { return results.map( summarize ); })
+	.then( function summarizeResults( results ) {
+		return results.map( summarize );
+	})
 	.then( function success (summaries) {
 		console.log("SUCCESS", summaries);
 
