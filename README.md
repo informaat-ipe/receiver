@@ -59,5 +59,8 @@ utilities/
     ngrok           // expose a port on a private machine on the internet -- for testing the webhook
 ```
 
+## Alternative
+Alternatively to this system, there is a 'Teamcity Service' that can be enabled on a Github repository. An example can be seen here on the ['receiver'][receiver] repository. Note that this service is Github specific.
 
 [webhook]: https://github.com/organizations/informaat-ipe/settings/hooks/6180300
+[receiver]: https://github.com/informaat-ipe/receiver/settings/hooks
