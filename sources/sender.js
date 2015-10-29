@@ -1,9 +1,11 @@
 'use strict';
 
 var Promise        = require( 'bluebird' );
-var request        = require( 'request' );
+var util           = require( 'util' );
+var request        = Promise.promisify( require( 'request' ) );
 var projectMessage = require( './messages/project.js' );
 var buildMessage   = require( './messages/build.js' );
+var vcsMessage     = require( './messages/vcs.js' );
 
 function mergeDefaultsWith( uri, message ) {
 	// This function merges new options with build-in defaults.
@@ -31,48 +33,45 @@ function mergeDefaultsWith( uri, message ) {
 	};
 }
 
-// TODO: refactor to promises
-function handler( callback ) {
-	// Ghetto-curried handler. Tasty!
-	return function handler( error, response, body ) {
-		if(error) throw new Error(error);
+function post(el) {
+	// domain:   Object: { uri: String, body: String }
+	// codomain: Promise
 
-		console.log( "%s: %s", response.statusCode, body );
-
-		if( ! error && response.statusCode == 200) {
-			callback && callback();
-		}
+	return function ReuestPromiseFactory () {
+		return request( mergeDefaultsWith( el.uri, el.body ) ).tap( log ).then( inspect );
 	}
 
+
+	function log( message ) {
+		console.log( message.req.method, message.req.path, ':', message.statusCode, message.statusMessage, message.body, '\n' );
+	}
+
+	function inspect( result ) {
+		// TODO: expand the rules here. 
+		if( result.statusCode !== 200 ) throw new Error(util.format("The %s to %s returned a %d: %s", result.req.method, result.req.path, result.statusCode, result.body));
+	}
 }
 
-function postProject( config, callback ) {
-	var uri  = '/projects';
-	var body = projectMessage( config );
-
-	request( mergeDefaultsWith( uri, body ), handler( callback ) );
-}
-
-function postBuild( config, callback ) {
-	var uri  = '/buildTypes';
-	var body = buildMessage( config );
-
-	request ( mergeDefaultsWith( uri, body ), handler() );
-}
-
-
-module.exports = function sender( options ) {
-	// `options` is the output of `parser.js`
-	if( ! options ) throw new Error( 'You need to provide an options object' );
+module.exports = function sender( config ) {
+	// `config` is the output of `parser.js`
+	if( ! config ) throw new Error( 'You need to provide a config object' );
 
 	// newProject & newDVCS, then newBuild
-	postProject( postBuild );
+	var messages = [
+		{ uri: '/projects',   body: projectMessage( config ) },
+		{ uri: '/vcs-roots',  body: vcsMessage( config ) },
+		{ uri: '/buildTypes', body: buildMessage( config ) }
+	];
 
-	/*
-		// Chain:
-		createDVCS().then( createProject().then( createBuild() ) ).catch( function(err) {} );
+	// Map over the promises so they execute in sequence
+	// The results are stored in an array
+	var Posts = messages.map( post );
+	return Promise.reduce(Posts, function PostReducer (results, doPost) {
+		return doPost().then( function PostResultHandler (result) {
+			results.push(result);
+			return results;
+		})
+	}, []);
 
-		// All:
-		Promise.all([ crateDVCS, createProject, createBuild ]).catch( function(err) {} );
-	*/
+	// return Promise.cast(messages).mapSeries(post);
 }

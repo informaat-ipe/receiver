@@ -9,13 +9,15 @@
   "scripts": {
     "test": "mocha",
     "start": "node index.js",
-    "tunnel": "./utils/ngrok http 8000"
+    "tunnel": "./utils/ngrok http 8000",
+    "test:post": "curl -vX POST http://localhost:8000/new-repo -d @test/stub/webhook.json --header \"Content-Type: application/json\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.4.0",
-    "mocha": "^2.3.3"
+    "mocha": "^2.3.3",
+    "mockery": "^1.4.0"
   },
   "dependencies": {
     "bluebird": "^3.0.0",

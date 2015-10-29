@@ -1,0 +1,18 @@
+<vcs-root id="Dialogica" name="Dialogica" vcsName="jetbrains.git" status="FINISHED" lastChecked="20151028T133452+0100" href="/httpAuth/app/rest/vcs-roots/id:Dialogica">
+	<project id="_Root" name="<Root project>" description="Contains all other projects" href="/httpAuth/app/rest/projects/id:_Root" webUrl="http://gpro.local:8111/project.html?projectId=_Root"/>
+	<properties count="12">
+	<property name="agentCleanFilesPolicy" value="ALL_UNTRACKED"/>
+	<property name="agentCleanPolicy" value="ON_BRANCH_CHANGE"/>
+	<property name="authMethod" value="PASSWORD"/>
+	<property name="branch" value="refs/heads/master"/>
+	<property name="ignoreKnownHosts" value="true"/>
+	<property name="secure:password"/>
+	<property name="submoduleCheckout" value="CHECKOUT"/>
+	<property name="teamcity:branchSpec" value="+:refs/heads/*"/>
+	<property name="url" value="https://github.com/informaat-ipe/dialogica"/>
+	<property name="useAlternates" value="true"/>
+	<property name="username" value="garbrand@gmail.com"/>
+	<property name="usernameStyle" value="USERID"/>
+	</properties>
+	<vcsRootInstances href="/httpAuth/app/rest/vcs-root-instances?locator=vcsRoot:(id:Dialogica)"/>
+</vcs-root>

@@ -27,6 +27,7 @@ sources/			// source code
 	handler.js		// Github webhook message handler
 	sender.js		// post messages to the Teamcity API
 	builder.js		// create messages for the Teamcity API
+	message.js		// populate Teamcity XML templates
 	templates/		// Teamcity xml templates
 test/				// tests
 README.md			// this file

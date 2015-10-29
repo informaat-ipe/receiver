@@ -1,3 +1,5 @@
+'use strict';
+
 var options = {
 	project: {
 		id: "TestConfig",

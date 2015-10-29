@@ -1,0 +1,18 @@
+<vcs-root id="{{project_id}}" name="{{project_name}}" vcsName="jetbrains.git" href="/httpAuth/app/rest/vcs-roots/id:{{project_id}}">
+	<project id="{{project_id}}" href="/httpAuth/app/rest/projects/id:{{project_id}}" webUrl="http://gpro.local:8111/project.html?projectId={{project_id}}"/>
+	<properties count="12">
+	<property name="agentCleanFilesPolicy" value="ALL_UNTRACKED"/>
+	<property name="agentCleanPolicy" value="ON_BRANCH_CHANGE"/>
+	<property name="authMethod" value="PASSWORD"/>
+	<property name="branch" value="refs/heads/master"/>
+	<property name="ignoreKnownHosts" value="true"/>
+	<property name="secure:password"/>
+	<property name="submoduleCheckout" value="CHECKOUT"/>
+	<property name="teamcity:branchSpec" value="+:refs/heads/*"/>
+	<property name="url" value="{{repo_url}}"/>
+	<property name="useAlternates" value="true"/>
+	<property name="username" value="garbrand@gmail.com"/>
+	<property name="usernameStyle" value="USERID"/>
+	</properties>
+	<vcsRootInstances href="/httpAuth/app/rest/vcs-root-instances?locator=vcsRoot:(id:{{project_id}})"/>
+</vcs-root>

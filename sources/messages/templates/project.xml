@@ -1,0 +1,3 @@
+<newProjectDescription name="{{project_name}}" id="{{project_name}}">
+	<parentProject locator="id:NodeModules" />
+</newProjectDescription>

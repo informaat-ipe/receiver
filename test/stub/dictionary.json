@@ -1,0 +1,7 @@
+{
+    "{{build_id}}": "TestConfig_Build",
+    "{{build_name}}": "Build",
+    "{{project_id}}": "TestConfig",
+    "{{project_name}}": "Test Config",
+    "{{repo_url}}": "https://www.github.com/informaat-ipe/some-project"
+}

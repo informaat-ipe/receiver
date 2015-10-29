@@ -5,5 +5,8 @@
     },
     "build": {
         "name": "Build"
+    },
+    "vcs": {
+        "url": "https://www.github.com/informaat-ipe/some-project"
     }
 }
