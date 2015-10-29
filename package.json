@@ -1,6 +1,6 @@
 {
   "name": "ops.receiver",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Teamcity Github integration for Dialogica",
   "engine": "node 0.12.7",
   "main": "index.js",
