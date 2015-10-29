@@ -1,6 +1,7 @@
 'use strict';
 
 var Promise        = require( 'bluebird' );
+var util           = require( 'util' );
 var request        = Promise.promisify( require( 'request' ) );
 var projectMessage = require( './messages/project.js' );
 var buildMessage   = require( './messages/build.js' );
@@ -32,15 +33,23 @@ function mergeDefaultsWith( uri, message ) {
 	};
 }
 
-function log( message ) {
-	console.log( message.method, message.statusCode, message.statusMessage, message.body );
-}
-
 function post(el) {
 	// domain:   Object: { uri: String, body: String }
 	// codomain: Promise
-	// TODO: add .then() to check for `statusCode`s other then 200
-	return request( mergeDefaultsWith( el.uri, el.body ) ).tap( log );
+
+	return function ReuestPromiseFactory () {
+		return request( mergeDefaultsWith( el.uri, el.body ) ).tap( log ).then( inspect );
+	}
+
+
+	function log( message ) {
+		console.log( message.req.method, message.req.path, ':', message.statusCode, message.statusMessage, message.body, '\n' );
+	}
+
+	function inspect( result ) {
+		// TODO: expand the rules here. 
+		if( result.statusCode !== 200 ) throw new Error(util.format("The %s to %s returned a %d: %s", result.req.method, result.req.path, result.statusCode, result.body));
+	}
 }
 
 module.exports = function sender( config ) {
@@ -54,18 +63,15 @@ module.exports = function sender( config ) {
 		{ uri: '/buildTypes', body: buildMessage( config ) }
 	];
 
-	// Create a promise for each post:
-	var newProject = post( messages[0] );
-	var newVCS     = post( messages[1] );
-	var newBuild   = post( messages[2] );
+	// Map over the promises so they execute in sequence
+	// The results are stored in an array
+	var Posts = messages.map( post );
+	return Promise.reduce(Posts, function PostReducer (results, doPost) {
+		return doPost().then( function PostResultHandler (result) {
+			results.push(result);
+			return results;
+		})
+	}, []);
 
-	var chain = newProject
-		.then( newVCS )
-		.then( newBuild )
-		.catch( console.error );
-
-	// Process each promise in sequence
-	// [TypeError: expecting a function but got [object Undefined]]
-	// return Promise.mapSeries( messages.map( post ) );
-	return chain;
+	// return Promise.cast(messages).mapSeries(post);
 }
