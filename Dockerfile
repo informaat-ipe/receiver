@@ -22,3 +22,9 @@ EXPOSE $OPS_PORT
 
 # Start the app (in WORKDIR)
 CMD ["npm", "start"]
+
+
+# EXAMPLE USAGE:
+# docker build -t receiver .
+# docker run -it --rm -p 8000:8000 receiver
+#
