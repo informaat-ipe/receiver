@@ -3,16 +3,22 @@ FROM node:0.12.7
 
 MAINTAINER Garbrand van der Molen, garbrand.van.der.molen@informaat.nl
 
+# Set the environment
+ENV OPS_PATH=/receiver \
+  OPS_PORT=8000
+
+# Set the working directory
+WORKDIR $OPS_PATH
+
 # Copy the code into the image
 # https://docs.docker.com/articles/dockerfile_best-practices/#add-or-copy
-ADD . /receiver
+ADD . $OPS_PATH
 
-WORKDIR /receiver
-
-# Install the deps
+# Install the deps (in WORKDIR)
 RUN npm install
 
 # Expose port 8000
-EXPOSE 8000
+EXPOSE $OPS_PORT
 
-CMD ["node", "index.js"]
+# Start the app (in WORKDIR)
+CMD ["npm", "start"]
