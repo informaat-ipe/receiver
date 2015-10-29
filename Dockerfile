@@ -5,14 +5,14 @@ MAINTAINER Garbrand van der Molen, garbrand.van.der.molen@informaat.nl
 
 # Set the environment
 ENV OPS_PATH=/receiver \
-  OPS_PORT=8000
+  OPS_PORT=8000 \
+  NODE_ENV=production
 
 # Set the working directory
 WORKDIR $OPS_PATH
 
 # Copy the code into the image
-# https://docs.docker.com/articles/dockerfile_best-practices/#add-or-copy
-ADD . $OPS_PATH
+COPY . $OPS_PATH
 
 # Install the deps (in WORKDIR)
 RUN npm install
