@@ -15,9 +15,9 @@ Automatically sets up a Teamcity project for node_module packages.
 ## Testing
 To manually test this webhook receiver, you can expose a local port to the internet, and then update the Github webhook configuration to post this port.
 
-1. Start the tunnel: `npm run tunnel`
+1. Start the tunnel: `npm run tunnel` -- note the public URL
 1. Start the server: `npm start`
-1. Configure the webhook: `https://github.com/organizations/informaat-ipe/settings/hooks/6180300`
+1. Configure the webhook: `https://github.com/organizations/informaat-ipe/settings/hooks/6180300` - put in the public URL of the tunnel
 
 ## Project structure
 ```
@@ -28,7 +28,7 @@ sources/			// source code
 	sender.js		// post messages to the Teamcity API
 	builder.js		// create messages for the Teamcity API
 	message.js		// populate Teamcity XML templates
-	templates/		// Teamcity xml templates
+	templates/		// Teamcity xml templates	
 test/				// tests
 README.md			// this file
 package.json		// package manifest and default CI API

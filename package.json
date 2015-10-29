@@ -9,10 +9,10 @@
   "scripts": {
     "test": "mocha",
     "start": "node index.js",
-    "tunnel": "./utils/ngrok http 8000",
+    "tunnel": "./utilities/ngrok http 8000",
     "test:post": "curl -vX POST http://localhost:8000/new-repo -d @test/stub/webhook.json --header \"Content-Type: application/json\""
   },
-  "author": "",
+  "author": "Garbrand van der Molen <garbrand@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.4.0",
@@ -24,5 +24,16 @@
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "request": "^2.65.0"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/informaat-ipe/receiver"
+  },
+  "keywords": [
+    "ops"
+  ],
+  "bugs": {
+    "url": "https://github.com/informaat-ipe/receiver/issues"
   }
 }
