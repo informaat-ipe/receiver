@@ -70,6 +70,8 @@ sources/            // source code
 test/               // tests
 README.md           // this file
 package.json        // package manifest and default CI API
+config.js           // parses configuration from ENV
+Dockerfile          // docker configuration
 utilities/
     ngrok           // expose a port on a private machine on the internet -- for testing the webhook
 ```
