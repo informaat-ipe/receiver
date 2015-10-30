@@ -7,6 +7,8 @@ Automatically sets up a Teamcity project for node_module packages.
     npm install && npm start
 ```
 
+If you want to run a docker image, do this: `npm run build && npm run docker`.
+
 ## Setup
 1. Set up a Webhook on the informaat-ipe organisation on Github, posting 'new repo' event messages to this endpoint: `[url of server]/new-module`
 1. When a new repo event is received, the `handler` will pass the message to `decoder`
@@ -21,7 +23,7 @@ Configuration is passed in through the following environment variables:
 | `OPS_BASEURL`   | the base url of the teamcity api | `http://localhost:8111/app/rest` |
 | `OPS_USER`      | the user credential for teamcity | `admin` |
 | `OPS_PASS`      | the password for the teamcity user | `admin` |
-```
+
 
 ## Service configuration
 
@@ -37,6 +39,7 @@ On the Teamcity side of things, the following structure is expected:
 On Github, [configure a webhook][webhook] for the **informaat-ipe** organisation to send a payload whenever a new repository is created.
 
 ## Application flow
+
 The flow of the app is as follows:
 
 - When the `receiver` receives a webhook payload from github
@@ -54,6 +57,7 @@ To manually test this webhook receiver, you can expose a local port to the inter
 1. Configure the [webhook][webhook] - put in the public URL of the tunnel from step 1.
 
 ## Project structure
+
 ```
 index.js            // parse the environment and configuration, default entry point
 sources/            // source code
