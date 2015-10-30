@@ -1,5 +1,5 @@
 # Using the same as Dialogica for now
-FROM node:0.12.7
+FROM node:4.1.2
 
 MAINTAINER Garbrand van der Molen, garbrand.van.der.molen@informaat.nl
 

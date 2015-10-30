@@ -12,6 +12,17 @@ Automatically sets up a Teamcity project for node_module packages.
 1. When a new repo event is received, the `handler` will pass the message to `decoder`
 1. The `decoder` will parse the webhook message and create an `options` object which it will pass
 
+## Configuration
+Configuration is passed in through the following environment variables:
+
+| env var       | description | default |
+| --------------| ------------| --------|
+| `OPS_PORT`      | the port the service should bind to | `8000` |
+| `OPS_BASEURL`   | the base url of the teamcity api | `http://localhost:8111/app/rest` |
+| `OPS_USER`      | the user credential for teamcity | `admin` |
+| `OPS_PASS`      | the password for the teamcity user | `admin` |
+```
+
 ## Service configuration
 
 ### Teamcity
