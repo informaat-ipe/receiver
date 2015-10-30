@@ -1,8 +1,11 @@
 <buildType id="{{build_id}}" name="{{build_name}}" projectId="{{project_id}}" >
     <project id="{{project_id}}" name="{{project_name}}" parentProjectId="NodeModules" href="/httpAuth/app/rest/projects/id:{{project_id}}" webUrl="http://localhost:8111/project.html?projectId={{project_id}}" />
     <template id="NodeModule" name="node_module" templateFlag="true" projectName="node_modules" projectId="NodeModules" href="/httpAuth/app/rest/buildTypes/id:NodeModule" />
-    <vcs-root-entries>
-        <!--vcs-root-entry elements are not necessary-->
+    <vcs-root-entries count="1">
+	    <vcs-root-entry id="{{project_id}}">
+            <vcs-root id="{{project_id}}" name="{{project_name}}" href="/httpAuth/app/rest/vcs-roots/id:{{project_id}}"/>
+		<checkout-rules/>
+	   </vcs-root-entry>
     </vcs-root-entries>
     <settings>
     </settings>
