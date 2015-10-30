@@ -52,5 +52,5 @@ module.exports = function handler ( req, res ){
 			error: error
 		});
 		res.end('ERROR');
-	})
+	});
 }

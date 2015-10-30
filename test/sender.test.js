@@ -16,7 +16,6 @@ mockery.registerMock( 'request', requestMock );
 describe('sender', function() {
 	var sender = require('../sources/sender.js');
 	var config = require('./stub/options.stub.json');
-	var promise = sender(config);
 
 	before(function(done) {
 		mockery.enable({warnOnReplace: true, warnOnUnregistered: true});
@@ -29,6 +28,7 @@ describe('sender', function() {
 	});
 
 	it('should return a Promise', function() {
+		var promise = sender(config);
 		expect( typeof promise.then ).to.equal('function');
 		expect( typeof promise.catch ).to.equal('function');
 	});

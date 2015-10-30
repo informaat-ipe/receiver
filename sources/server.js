@@ -7,7 +7,6 @@ var newRepoHandler = require( './handler.js' );
 
 var app = express();
 
-
 // Set up default middlewares:
 app.use( bparser.json() );
 

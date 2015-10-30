@@ -3,7 +3,23 @@
 var Promise        = require( 'bluebird' );
 var util           = require( 'util' );
 var message        = require( './message.js' );
+var config         = require( '../config.js' );
 var request        = Promise.promisify( require( 'request' ) );
+
+var settings = {
+	// defaults
+	baseUrl: config.baseUrl,
+	method: "POST",
+	auth: {
+		user: config.auth.user,
+		pass: config.auth.pass,
+		sendImmediately: false
+	},
+	encoding: 'utf8',
+	headers: {
+		"Content-Type": "application/xml"
+	}
+};
 
 function mergeDefaultsWith( uri, message ) {
 	// This function merges new options with build-in defaults.
@@ -13,22 +29,7 @@ function mergeDefaultsWith( uri, message ) {
 	if( typeof message !== 'string' ) throw new TypeError( 'Expected `message` to be a string');
 
 	// `request` options object. See: https://github.com/request/request#requestoptions-callback
-	return {
-		uri: uri,
-		body: message,
-		// defaults
-		baseUrl: 'http://teamcity:8111/app/rest',
-		method: "POST",
-		auth: {
-			user: 'admin',
-			pass: 'admin',
-			sendImmediately: false
-		},
-		encoding: 'utf8',
-		headers: {
-			"Content-Type": "application/xml"
-		}
-	};
+	return Object.assign({uri: uri, body: message}, settings);
 }
 
 function post(el) {
@@ -62,4 +63,4 @@ module.exports = function sender( dictionary ) {
 			return results;
 		})
 	}, []);
-}
+};

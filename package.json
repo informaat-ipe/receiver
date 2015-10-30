@@ -1,7 +1,8 @@
 {
-  "name": "ops.teamcity",
-  "version": "1.0.1",
+  "name": "ops.receiver",
+  "version": "1.1.0",
   "description": "Teamcity Github integration for Dialogica",
+  "engine": "node 0.12.7",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -9,8 +10,10 @@
   "scripts": {
     "test": "mocha",
     "start": "node index.js",
-    "tunnel": "./utilities/ngrok http 8000",
-    "test:post": "curl -vX POST http://localhost:8000/new-repo -d @test/stub/webhook.json --header \"Content-Type: application/json\""
+    "tunnel": "./utilities/ngrok http ${OPS_PORT:-8000}",
+    "build": "docker build -t dialogica/ops.receiver .",
+    "test:post": "curl -vX POST http://localhost:${OPS_PORT:-8000}/new-repo -d @test/stub/webhook.json --header \"Content-Type: application/json\"",
+    "docker": "docker run --name ops_receiver -p ${OPS_PORT:-8000}:8000 -d dialogica/ops.receiver"
   },
   "author": "Garbrand van der Molen <garbrand@gmail.com>",
   "license": "ISC",
