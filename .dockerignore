@@ -1,1 +1,3 @@
-teamcity/*
+test/*
+utilities/*
+*.iml
