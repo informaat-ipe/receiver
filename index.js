@@ -6,5 +6,5 @@ var server = require('./sources/server.js');
 
 server.set('x-powered-by', false);     // do not expose implementation details
 
-server.listen( options.port );
-console.log("Listening for github webhook messages at http://localhost:%d/new-repo", options.port);
+server.listen( config.port );
+console.log("Listening for github webhook messages at http://localhost:%d/new-repo", config.port);
