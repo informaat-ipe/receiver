@@ -15,7 +15,8 @@ WORKDIR $OPS_PATH
 COPY . $OPS_PATH
 
 # Install the deps (in WORKDIR)
-RUN npm install
+RUN npm install --unsafe-perm \
+ && npm cache clean
 
 # Expose port
 EXPOSE $OPS_PORT
