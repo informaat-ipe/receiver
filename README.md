@@ -14,7 +14,7 @@ If you want to run a docker image, do this: `npm run build && npm run docker`.
 1. When a new repo event is received, the `handler` will pass the message to `decoder`
 1. The `decoder` will parse the webhook message and create an `options` object which it will pass
 
-## Configuration
+### Configuration
 Configuration is passed in through the following environment variables:
 
 | env var       | description | default |
@@ -25,9 +25,9 @@ Configuration is passed in through the following environment variables:
 | `OPS_PASS`      | the password for the teamcity user | `admin` |
 
 
-## Service configuration
+### Service configuration
 
-### Teamcity
+#### Teamcity
 On the Teamcity side of things, the following structure is expected:
 ```
 <ROOT PROJECT>          // build-in
@@ -35,7 +35,7 @@ On the Teamcity side of things, the following structure is expected:
         <node_module>   // build-configuration template
 ```
 
-### Github
+#### Github
 On Github, [configure a webhook][webhook] for the **informaat-ipe** organisation to send a payload whenever a new repository is created.
 
 ## Application flow
