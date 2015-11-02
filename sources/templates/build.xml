@@ -15,7 +15,12 @@
     </steps>
     <features>
     </features>
-    <triggers>
+    <triggers count="1">
+        <trigger id="vcsTrigger_{{project_id}}" type="vcsTrigger">
+            <properties count="1">
+                <property name="quietPeriodMode" value="DO_NOT_USE"/>
+            </properties>
+        </trigger>
     </triggers>
     <snapshot-dependencies/>
     <artifact-dependencies/>

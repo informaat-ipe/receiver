@@ -1,3 +1,4 @@
 <newProjectDescription name="{{project_name}}" id="{{project_id}}">
 	<parentProject locator="id:NodeModules" />
+	<vcsRoots count="1" href="/httpAuth/app/rest/vcs-roots?locator=project:(id:{{project_id}})" />
 </newProjectDescription>
