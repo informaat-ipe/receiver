@@ -3,5 +3,5 @@
     "{{build_name}}": "Build",
     "{{project_id}}": "TestConfig",
     "{{project_name}}": "Test Config",
-    "{{repo_url}}": "https://api.github.com/repos/informaat-ipe/TestConfig"
+    "{{repo_url}}": "git@github.com:informaat-ipe/TestConfig.git"
 }

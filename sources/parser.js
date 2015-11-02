@@ -4,8 +4,8 @@ module.exports = function parseNewRepoMessage( message ) {
 	if(! message || typeof message !== 'object') throw new Error( 'Did not receive an Object as argument' );
 
 	var name       = message.repository.name;
-	var repository = message.repository.url;
-	var id         = name.replace(/\s+/g, ''); // strip all whitespace
+	var repository = "git@github.com:" + message.repository.full_name + ".git";
+	var id         = name.replace(/[\W_]+/g, ''); // strip all whitespace
 
 	return {
         "{{build_id}}":     id+'_Build',
