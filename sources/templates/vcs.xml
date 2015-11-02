@@ -3,15 +3,15 @@
 	<properties count="12">
 	<property name="agentCleanFilesPolicy" value="ALL_UNTRACKED"/>
 	<property name="agentCleanPolicy" value="ON_BRANCH_CHANGE"/>
-	<property name="authMethod" value="PASSWORD"/>
+	<property name="authMethod" value="TEAMCITY_SSH_KEY"/>
 	<property name="branch" value="refs/heads/master"/>
 	<property name="ignoreKnownHosts" value="true"/>
 	<property name="secure:password"/>
 	<property name="submoduleCheckout" value="CHECKOUT"/>
 	<property name="teamcity:branchSpec" value="+:refs/heads/*"/>
-	<property name="url" value="{{repo_url}}"/>
+	<property name="teamcitySshKey" value="teamcity"/>
+	<property name="url" value="git@github.com:informaat-ipe/{{project_id}}.git"/>
 	<property name="useAlternates" value="true"/>
-	<property name="username" value="garbrand@gmail.com"/>
 	<property name="usernameStyle" value="USERID"/>
 	</properties>
 	<vcsRootInstances href="/httpAuth/app/rest/vcs-root-instances?locator=vcsRoot:(id:{{project_id}})"/>
