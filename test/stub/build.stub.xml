@@ -1,1 +1,30 @@
-<buildTypeid="TestConfig_Build"name="Build"projectId="TestConfig"><projectid="TestConfig"name="TestConfig"parentProjectId="NodeModules"href="/httpAuth/app/rest/projects/id:TestConfig"webUrl="http://localhost:8111/project.html?projectId=TestConfig"/><templateid="NodeModule"name="node_module"templateFlag="true"projectName="node_modules"projectId="NodeModules"href="/httpAuth/app/rest/buildTypes/id:NodeModule"/><vcs-root-entriescount="1"><vcs-root-entryid="TestConfig"><vcs-rootid="TestConfig"name="TestConfig"href="/httpAuth/app/rest/vcs-roots/id:TestConfig"/><checkout-rules/></vcs-root-entry></vcs-root-entries><settings></settings><parameters></parameters><steps></steps><features></features><triggerscount="1"><triggerid="vcsTrigger_TestConfig"type="vcsTrigger"><propertiescount="1"><propertyname="quietPeriodMode"value="DO_NOT_USE"/></properties></trigger></triggers><snapshot-dependencies/><artifact-dependencies/><agent-requirements/><buildshref="/httpAuth/app/rest/buildTypes/id:TestConfig_Build/builds/"/></buildType>
+<?xml version="1.0" encoding="UTF-8"?>
+<buildTypeid="TestConfig_Build"name="Build"projectId="TestConfig">
+  <projectid="TestConfig"name="TestConfig"parentProjectId="NodeModules"href="/httpAuth/app/rest/projects/id:TestConfig"webUrl="http://localhost:8111/project.html?projectId=TestConfig"/>
+  <templateid="NodeModule"name="node_module"templateFlag="true"projectName="node_modules"projectId="NodeModules"href="/httpAuth/app/rest/buildTypes/id:NodeModule"/>
+  <vcs-root-entriescount="1">
+    <vcs-root-entryid="TestConfig">
+      <vcs-rootid="TestConfig"name="TestConfig"href="/httpAuth/app/rest/vcs-roots/id:TestConfig"/>
+      <checkout-rules/>
+    </vcs-root-entry>
+  </vcs-root-entries>
+  <settings>
+  </settings>
+  <parameters>
+  </parameters>
+  <steps>
+  </steps>
+  <features>
+  </features>
+  <triggerscount="1">
+    <triggerid="vcsTrigger_TestConfig"type="vcsTrigger">
+      <propertiescount="1">
+        <propertyname="quietPeriodMode"value="DO_NOT_USE"/>
+      </properties>
+    </trigger>
+  </triggers>
+  <snapshot-dependencies/>
+  <artifact-dependencies/>
+  <agent-requirements/>
+  <buildshref="/httpAuth/app/rest/buildTypes/id:TestConfig_Build/builds/"/>
+</buildType>
